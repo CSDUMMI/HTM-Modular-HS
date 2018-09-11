@@ -3,9 +3,9 @@ class SDR {
         this.active = act;
         this.size = size;
     }
-    add(other) {
-        this.active += other.active;
-        this.size += other.size;
+    static add(sdr1,sdr2) {
+        return new SDR( sdr1.size + sdr2.size,
+                        sdr1.active + sdr2.active);
     }
 }
 
