@@ -7,6 +7,10 @@ class SDR {
         return new SDR( sdr1.size + sdr2.size,
                         sdr1.active + sdr2.active);
     }
+    static moreActiveThen(sdr1,sdr2) {
+      //Rule sdr1.size = sdr2.size & sdr1.active > sdr2.active
+      return sdr1.size == sdr2.size && sdr1.active > sdr2.active;
+    }
 }
 
 module.exports = SDR;
