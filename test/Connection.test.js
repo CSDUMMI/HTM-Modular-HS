@@ -7,7 +7,12 @@ describe('Connection Class', () => {
   };
   test('Initilization', () => {
       con = new Connection(3,test_layer,54,53);
-      expect(con.receive()).toEqual(0); //using++ => using == threshold
-      expect(con.receive()).toEqual(3); //using++ => using > threshold
+      expect(con.threshold).toEqual(54);
+      expect(con.using).toEqual(53);
+      expect(con.index).toEqual(3);
+  });
+  test('Receive: using++ then test for receiving', () => {
+    expect(con.receive()).toEqual(0); //using++ => using == threshold
+    expect(con.receive()).toEqual(3); //using++ => using > threshold
   });
 });
