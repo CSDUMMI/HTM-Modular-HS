@@ -11,6 +11,11 @@ class SDR {
       //Rule sdr1.size = sdr2.size & sdr1.active > sdr2.active
       return sdr1.size == sdr2.size && sdr1.active > sdr2.active;
     }
+    concatenate(other) {
+      //Place other at the end of this SDR
+      this.size += other.size;
+      this.active += other.active;
+    }
 }
 
 module.exports = SDR;

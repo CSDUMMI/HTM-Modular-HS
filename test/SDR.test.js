@@ -13,4 +13,11 @@ describe('SDR Class', () => {
                                 new SDR(2,1)))
                                 .toEqual(true);
     });
+
+    test ('Concatenate two SDRs directly on the SDR instance', () => {
+      let sdr1 = new SDR(7,3);
+      let sdr2 = new SDR(6,2);
+      sdr1.concatenate(sdr2);
+      expect(sdr1).toEqual(new SDR(13,5));
+    })
 });
