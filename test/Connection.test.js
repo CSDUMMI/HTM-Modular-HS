@@ -1,18 +1,34 @@
 const Connection = require('../src/Connection');
 
 describe('Connection Class', () => {
+
   let con;
-  let test_layer = {
-     lastOutput:[0,1,2,3,4,5,6]
-  };
+
+  class TestSegment {
+    fired() {
+      console.log("Neuron Fired");
+    }
+  }
+
+  class TestNeuron {
+    constructor() {
+      this.lastActivation = 0;
+      this.segments = [new TestSegment()];
+    }
+  }
+
+  let tNeuron1 = new TestNeuron();
+  tNeuron1.lastActivation = 1;
+  let tNeuron2 = new TestNeuron();
+
+  con = new Connection(tNeuron1,tNeuron2,0,0,2,1);
   test('Initilization', () => {
-      con = new Connection(3,test_layer,54,53);
-      expect(con.threshold).toEqual(54);
-      expect(con.using).toEqual(53);
-      expect(con.index).toEqual(3);
+      expect(con.threshold).toEqual(2);
+      expect(con.using).toEqual(1);
   });
   test('Receive: using++ then test for receiving', () => {
-    expect(con.receive()).toEqual(0); //using++ => using == threshold
-    expect(con.receive()).toEqual(3); //using++ => using > threshold
+    expect(con.receive(tNeuron1)).toEqual(0);//using++ => 2
+    expect(con.receive(tNeuron2)).toEqual(1);//using++ => 3
+    expect(() => con.receive()).toThrow();
   });
 });

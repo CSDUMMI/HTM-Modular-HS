@@ -1,13 +1,35 @@
 class Connection {
-  constructor(input_index,input_layer,threshold,using) {
-    this.index = input_index;
-    this.layer = input_layer;
+  constructor(first,second,first_segment,second_segment,threshold,using) {
+    this.first = {
+      neuron:first,
+      segment:first_segment
+    };
+    this.second = Object.create(this.first);
+    this.second.neuron = second;
+    this.second.segment = second_segment;
     this.threshold = threshold;
     this.using = using;
   }
-  receive() {
+
+  receive(receiver) {
     this.using++;
-    return this.threshold < this.using ? this.layer.lastOutput[this.index] : 0;
+    if(this.using > this.threshold) {
+      //TODO: Place here activation function for Connection
+      switch(receiver) {
+        case this.first.neuron:
+          return this.second.neuron.lastActivation;
+          break;
+        case this.second.neuron:
+          return this.first.neuron.lastActivation;
+          break;
+        default:
+          throw "Error:Connection.receive on " +
+          this +
+          " called with invalid argument";
+      }
+    } else {
+      return 0;
+    }
   }
 }
 
