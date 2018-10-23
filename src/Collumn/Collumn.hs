@@ -43,6 +43,11 @@ data Collumn = Collumn {
   layer_num::Int
 }
 -- | Add a Layer to the Collumn
+-- Arguments:
+--    The Collumn
+--    to wish  there should
+--    be added something
+--    The Layer that shall be added
 pushLayer :: Collumn -> Layer -> Collumn
 pushLayer (Collumn {layers = orgLayers,layer_num = ln}) new_layer =
   Collumn {
