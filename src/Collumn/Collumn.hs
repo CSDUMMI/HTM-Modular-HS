@@ -53,4 +53,4 @@ pushLayer (Collumn {layers = orgLayers,layer_num = ln}) new_layer =
   Collumn {
   layers = orgLayers ++ [new_layer],
   layer_num = ln
-}
+  }
