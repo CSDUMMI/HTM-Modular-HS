@@ -14,6 +14,20 @@
   (major1) == 4 && (major2) <  9 || \
   (major1) == 4 && (major2) == 9 && (minor) <= 1)
 
+/* package hspec-2.4.4 */
+#define VERSION_hspec "2.4.4"
+#define MIN_VERSION_hspec(major1,major2,minor) (\
+  (major1) <  2 || \
+  (major1) == 2 && (major2) <  4 || \
+  (major1) == 2 && (major2) == 4 && (minor) <= 4)
+
+/* package hspec-discover-2.4.4 */
+#define VERSION_hspec_discover "2.4.4"
+#define MIN_VERSION_hspec_discover(major1,major2,minor) (\
+  (major1) <  2 || \
+  (major1) == 2 && (major2) <  4 || \
+  (major1) == 2 && (major2) == 4 && (minor) <= 4)
+
 /* tool gcc-8.2.1 */
 #define TOOL_VERSION_gcc "8.2.1"
 #define MIN_TOOL_VERSION_gcc(major1,major2,minor) (\
