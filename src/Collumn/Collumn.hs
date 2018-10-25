@@ -9,9 +9,9 @@ Stability   : experimental
 
 -}
 module Collumn
-( LayerData,
-  Layer,
-  Collumn,
+( LayerData (..),
+  Layer (..),
+  Collumn (..),
   pushLayer
 ) where
 
@@ -41,7 +41,7 @@ instance Show Layer where
 data Collumn = Collumn {
   layers::[Layer],
   layer_num::Int
-}
+} deriving (Show)
 -- | Add a Layer to the Collumn
 -- Arguments:
 --    The Collumn
@@ -54,3 +54,12 @@ pushLayer (Collumn {layers = orgLayers,layer_num = ln}) new_layer =
   layers = orgLayers ++ [new_layer],
   layer_num = ln
   }
+
+computeLayer :: Collumn -> Collumn
+computeLayer (Collumn {layers = lys,layer_num = lyn }) =
+  cmpLayer Collumn {
+    layers= cmpLayer Collumn {layers=lys,layer_num=lyn}
+    layer_num=lyn
+  }
+  where
+    cmpLayer layers lay_num =
