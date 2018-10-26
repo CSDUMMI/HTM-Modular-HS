@@ -12,7 +12,8 @@ module Collumn
 ( LayerData (..),
   Layer (..),
   Collumn (..),
-  pushLayer
+  pushLayer,
+  initCollumn
 ) where
 
 
@@ -24,7 +25,7 @@ data LayerData  = LayerData [[Double]] deriving (Show)
 -- each time we want the output of a Layer on a current Collumn.
 -- As this activationFunction you can for example implement a SP.
 data Layer = Layer  {
- activationFunction :: (Collumn -> LayerData  -> Int -> Collumn),
+ activationFunction :: (Collumn -> Collumn),
  layer_data :: LayerData
 }
 
@@ -55,11 +56,13 @@ pushLayer (Collumn {layers = orgLayers,layer_num = ln}) new_layer =
   layer_num = ln
   }
 
+initCollumn :: [Layer] -> Collumn
+initCollumn lays = Collumn {layers = lays,layer_num = 0}
 computeLayer :: Collumn -> Collumn
-computeLayer (Collumn {layers = lys,layer_num = lyn }) =
-  cmpLayer Collumn {
-    layers= cmpLayer Collumn {layers=lys,layer_num=lyn}
-    layer_num=lyn
-  }
-  where
-    cmpLayer layers lay_num =
+computeLayer colmn = 
+  let 
+    lays = layers colmn
+    index = layer_num colmn
+    afn = activationFunction $ lays !! index
+  in 
+  afn colmn 
