@@ -15,4 +15,9 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -}
-
+main = do
+  putStrLn "HTM-Modular Copyrigth (C) 2018 Joris Gutjahr"
+  putStrLn "This program comes with ABSOLUTLY NO WARRANTY;"
+  putStrLn "for details type ':Warranty'"
+  putStrLn "This is free software, and you are welcome to redistribute it"
+  putStrLn "under certain conditions; type ':License' for details"
