@@ -75,5 +75,5 @@ s_concate :: SDR -> SDR -> SDR
 s_concate s_1 s_2 =
   SDR {
   len=(len s_1) + (len s_2),
-  sdr_active_indicies = (sdr_active_indicies s_2)++(sdr_active_indicies s_1)
+  sdr_active_indicies = (sdr_active_indicies s_1) ++ [x + (len s_1)| x <- (sdr_active_indicies s_2)]
   }
