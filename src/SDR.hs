@@ -30,7 +30,8 @@ module SDR
     remove_duplicates,
     s_union,
     s_overlap,
-    empty_sdr
+    empty_sdr,
+    s_concate
   ) where
 
 data SDR =
@@ -41,10 +42,13 @@ data SDR =
 
 empty_sdr = SDR { len=0,sdr_active_indicies=[]}
 
+
+-- | Important Helper Function
 remove_duplicates ::(Eq a) =>  [a] -> [a]
 remove_duplicates x =
   foldr (\x xs -> if x `elem` xs then xs else x:xs) [] x
 
+-- | Union Property
 s_union :: SDR -> SDR -> SDR
 s_union s_1 s_2
   | len s_1 == len s_2 =
@@ -55,6 +59,8 @@ s_union s_1 s_2
       }
   | otherwise = empty_sdr
 
+-- | Get the Overlap.
+-- if you want the overlap count, just take the length of the active_indicies
 s_overlap s_1 s_2
   | len s_1 == len s_2 =
     SDR {
@@ -64,3 +70,10 @@ s_overlap s_1 s_2
     }
   | otherwise = empty_sdr
                              
+-- | Concatenate two sdrs, just append the second to the first
+s_concate :: SDR -> SDR -> SDR
+s_concate s_1 s_2 =
+  SDR {
+  len=(len s_1) + (len s_2),
+  sdr_active_indicies = (sdr_active_indicies s_2)++(sdr_active_indicies s_1)
+  }

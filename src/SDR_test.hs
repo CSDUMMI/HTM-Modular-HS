@@ -37,7 +37,8 @@ test_remove_duplicates =
   in expect $ (remove_duplicates list_with_dups)
      `toBe` list_without_dups
     
-
+test_empty_sdr =
+  expect $ empty_sdr `pred_compare_sdrs` SDR{len=0,sdr_active_indicies=[]}
 test_s_union =
   let sdr_1 = SDR {len=128,sdr_active_indicies=[12,20,13] }
       sdr_2 = SDR {len=128,sdr_active_indicies=[21,31,13] }
@@ -49,6 +50,14 @@ test_s_overlap =
       s_2 = SDR {len=128,sdr_active_indicies=[21,23,24]}
       s_overlap_1_2 = SDR {len=128,sdr_active_indicies=[21,23,24]}
   in expect $ (s_overlap s_1 s_2) `pred_compare_sdrs` s_overlap_1_2
+
+test_s_concate =
+  let s_1 = SDR {len=128,sdr_active_indicies=[12,13,24]}
+      s_2 = SDR {len=128,sdr_active_indicies=[12,13,24]}
+      s_con = SDR {len=256,sdr_active_indicies=[12,13,24,12+128,13+128,24+128]}
+  in expect $ (s_concate s_1 s_2) `pred_compare_sdrs` s_con
+  
 sdr_test = do 
   test_s_overlap
   test_s_union
+  test_s_concate
