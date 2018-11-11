@@ -42,11 +42,8 @@ data SDR =
 empty_sdr = SDR { len=0,sdr_active_indicies=[]}
 
 remove_duplicates ::(Eq a) =>  [a] -> [a]
-adIfnotIn x xs 
-  | x `elem` xs = xs
-  | otherwise = x:xs
 remove_duplicates x =
-  foldr adIfnotIn [] x
+  foldr (\x xs -> if x `elem` xs then xs else x:xs) [] x
 
 s_union :: SDR -> SDR -> SDR
 s_union s_1 s_2
@@ -61,6 +58,9 @@ s_union s_1 s_2
 s_overlap s_1 s_2
   | len s_1 == len s_2 =
     SDR {
+      len=len s_1,
+      sdr_active_indicies =
+          remove_duplicates [x | x <- sdr_active_indicies s_1, x `elem` sdr_active_indicies s_2]
     }
   | otherwise = empty_sdr
                              
