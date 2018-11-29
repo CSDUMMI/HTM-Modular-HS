@@ -1,1 +1,3 @@
-src/auto_test.sh
+.ghc*
+dist
+dist-newstyle
